@@ -1,3 +1,4 @@
 # liri-node-app
 
-![Alt text](/omdb/api/call.png?raw=true "Omdb api call")
+![omdb api]
+(/liri-node-app/omdb_api.png?raw=true "Omdb api call")
