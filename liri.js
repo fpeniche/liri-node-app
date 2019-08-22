@@ -5,12 +5,6 @@ require("dotenv").config();
   var keys = require("./keys.js");
   var Spotify = require('node-spotify-api');
   
-  var Spotify = function(id,secret)
-  {
-        this.id= id;
-        this.secret= secret;
-  }
-  
   var spotify = new Spotify(keys.spotify);
 
   var concert = process.argv[2];
@@ -39,8 +33,7 @@ require("dotenv").config();
             
               //  axios.get(URL).then(function(response) {
                   // Place the response.data into a variable, jsonData.
-                  var jsonData = data;
-                  console.log(jsonData);
+                  
             
                   // showData ends up being the string containing the show data we will print to the console
                //   var showData = [
@@ -63,7 +56,8 @@ require("dotenv").config();
         {
             console.log("Searching for spotify song");
             console.log(term);
-            Song.findSong(term);
+            var song = new Song();
+            song.findSong(term);
           };
 
 // call to the omdb api
@@ -109,3 +103,45 @@ require("dotenv").config();
 
         };
 
+
+        if(concert === "concert-this")
+        {
+            var bandsintown = require('bandsintown');
+            var axios = require("axios");
+
+            // Querying the bandsintown api for the selected artist, the ?app_id parameter is required
+           axios.get("https://rest.bandsintown.com/artists/" + term + "/events?app_id=codingbootcamp")
+            
+            .then(function(response) {
+                console.log(response.data);
+                console.log("The venue of the next concert for " + response.data[0].lineup + " is: " + response.data[0].venue.name);
+                console.log("The location of the venue is: " + response.data[0].venue.country + ", " + response.data[0].venue.city + ", " + response.data[0].venue.region);
+                console.log("The date of the event is: " + response.data[0].datetime);
+
+           })
+           .catch(function(error) {
+            if (error.response) {
+              // The request was made and the server responded with a status code
+              // that falls out of the range of 2xx
+              console.log("---------------Data---------------");
+              console.log(error.response.data);
+              console.log("---------------Status---------------");
+              console.log(error.response.status);
+              console.log("---------------Status---------------");
+              console.log(error.response.headers);
+            } else if (error.request) {
+              // The request was made but no response was received
+              // `error.request` is an object that comes back with details pertaining to the error that occurred.
+              console.log(error.request);
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.log("Error", error.message);
+            }
+            console.log(error.config);
+          });  
+          //  bandsintown.getArtistEventList(term)
+          //       .then(function(events) {
+                    
+                
+            
+        }
