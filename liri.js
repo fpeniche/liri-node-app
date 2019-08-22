@@ -113,7 +113,7 @@ require("dotenv").config();
            axios.get("https://rest.bandsintown.com/artists/" + term + "/events?app_id=codingbootcamp")
             
             .then(function(response) {
-                console.log(response.data);
+                console.log(response.data[0]);
                 console.log("The venue of the next concert for " + response.data[0].lineup + " is: " + response.data[0].venue.name);
                 console.log("The location of the venue is: " + response.data[0].venue.country + ", " + response.data[0].venue.city + ", " + response.data[0].venue.region);
                 console.log("The date of the event is: " + response.data[0].datetime);
